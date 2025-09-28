@@ -1,73 +1,127 @@
-# React + TypeScript + Vite
+# Assignment - UI Components Library
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains a simple **UI components library** built using **React + TypeScript + Vite** with **Storybook** for component previews and **Vitest** for basic testing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🏗 Folder Structure
 
-## React Compiler
+.
+├─ src/
+│ ├─ components/
+│ │ ├─ InputFields/
+│ │ │ ├─ InputField.tsx
+│ │ │ └─ InputField.stories.tsx
+│ │ ├─ DataTable/
+│ │ │ ├─ DataTable.tsx
+│ │ │ └─ DataTable.stories.tsx
+│ │ └─ ... (other components)
+├─ .storybook/
+│ ├─ main.ts
+│ ├─ preview.ts
+│ └─ vitest.setup.ts
+├─ package.json
+├─ tsconfig.json
+├─ vite.config.ts
+└─ README.md
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ⚡ Components
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. **InputField**
+- Text input component with:
+  - Label, placeholder, helper text, error message
+  - States: `disabled`, `invalid`, `loading`
+  - Variants: `filled`, `outlined`, `ghost`
+  - Sizes: `sm`, `md`, `lg`
+  - Optional: clear button, password toggle
+- Props fully typed with TypeScript
+- Storybook stories included for all states and variants
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+**Usage:**
+```tsx
+import InputField from "@/components/InputFields/InputField";
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+<InputField
+  label="Username"
+  placeholder="Enter your name"
+  helperText="This is required"
+  variant="outlined"
+  size="md"
+/>
+2. DataTable
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Displays tabular data with:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Column sorting
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Row selection (single/multiple)
+
+Loading and empty states
+
+Fully typed with TypeScript generics
+
+Storybook stories for Default, Sortable, Selectable, Loading, Empty
+import DataTable, { Column } from "@/components/DataTable/DataTable";
+
+const columns: Column<Person>[] = [
+  { key: 'name', title: 'Name', dataIndex: 'name', sortable: true },
+  { key: 'age', title: 'Age', dataIndex: 'age', sortable: true },
+  { key: 'email', title: 'Email', dataIndex: 'email' },
+];
+
+<DataTable
+  data={sampleData}
+  columns={columns}
+  selectable
+  onRowSelect={(rows) => console.log(rows)}
+/>
+🧪 Testing
+
+Vitest is used for basic testing
+
+Example tests:
+
+Renders components correctly
+
+Sorting works
+
+Row selection triggers callback
+
+Loading & empty states
+
+Run tests:
+
+npm run test
+
+🚀 Setup Instructions
+
+Clone the repository
+
+git clone https://github.com/aashirwad89/Assignment-uzence.git
+cd Assignment-uzence
+
+
+Install dependencies
+
+npm install
+
+
+Run Storybook
+
+npm run storybook
+
+
+Open http://localhost:6006
+ to view components.
+
+Run tests
+
+npm run test
+
+
+Build for production
+
+npm run build
